@@ -7,10 +7,12 @@ import sys
 sys.path.insert(1, 'controllers')
 sys.path.insert(2, 'models')
 
-from loginModel import Login
+from loginController import LoginController
 
 
 app = Flask(__name__)
+
+usuario_logado=""
 
 @app.route("/")
 def index():
@@ -38,14 +40,18 @@ def login_get():
 
 @app.post("/login")
 def login_post():
-    Login.teste()
-    print(request.method)
-    print(request.form['nome'])
-    return "<p>Ola post teste!</p>"
+    html,usuario_logado1=LoginController.login(request.form['login'],request.form['senha'])
+    global usuario_logado
+    usuario_logado = usuario_logado1
+    return html
 
 @app.get("/easter_egg")
 def easter_egg():
     return render_template('header.html',name='easter_egg')+render_template('easter_egg.html')+render_template('footer.html',scripts=[url_for('static',filename='konami.js')])
+
+@app.route("/teste")
+def teste():
+    return "<p>Hello, "+usuario_logado+"!</p>"
 
 with app.test_request_context():
     print(url_for('index'))
