@@ -1,0 +1,47 @@
+<h1>Novo usuario</h1>
+<form action="{{url}}" method="post" id="formUsuarios">
+    <label for="id">id(0 para novo usuario)</label>
+    <input type="number" name="id" id="id" value="0">
+    <br/>
+    <label for="login">login</label>
+    <input type="text" name="login" id="login">
+    <br/>
+    <label for="senha">senha</label>
+    <input type="text" name="senha" id="senha">
+    <br/>
+    <label for="nome">nome</label>
+    <input type="text" name="nome" id="nome">
+    <br/>
+    <label for="cpf">cpf</label>
+    <input type="text" name="cpf" id="cpf">
+    <br/>
+    <label for="bairro">bairro</label>
+    <input type="text" name="bairro" id="bairro">
+    <br/>
+    <label for="rua">rua</label>
+    <input type="text" name="rua" id="rua">
+    <br/>
+    <label for="numero">numero</label>
+    <input type="text" name="numero" id="numero">
+    <br/>
+    <label for="cidade">cidade</label>
+    <input type="text" name="cidade" id="cidade">
+    <br/>
+    <label for="estado">estado</label>
+    <input type="text" name="estado" id="estado">
+    <br/>
+    <label for="data_nascimento">nascimento</label>
+    <input type="text" name="data_nascimento" id="data_nascimento">
+    <br/>
+    <label for="bibliotecario">bibliotecario</label>
+    <input type="checkbox" name="bibliotecario" id="bibliotecario">
+    <br/>
+    <button type="submit">Enviar</button>
+</form>
+
+{% if usuarios :%}
+    {% for i in usuarios:%}
+        <p>{{i}}</p>
+        <button onclick="Editar({{i[0]}})">Editar</button>
+    {% endfor %}
+{% endif %}

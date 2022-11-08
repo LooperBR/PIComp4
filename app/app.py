@@ -8,6 +8,7 @@ sys.path.insert(1, 'controllers')
 sys.path.insert(2, 'models')
 
 from loginController import LoginController
+from usuarioController import UsuarioController
 
 
 app = Flask(__name__)
@@ -24,11 +25,7 @@ def hello_world():
 
 @app.get("/usuario/<usuario>")
 def usuario_get(usuario):
-    return "<p>Ola "+usuario+"!</p>"
-
-@app.post("/usuario/<usuario>")
-def usuario_post(usuario):
-    return "<p>Ola post "+usuario+"!</p>"
+    return UsuarioController.get(usuario)
 
 @app.get("/login")
 def login_get():
@@ -45,6 +42,14 @@ def login_post():
     usuario_logado = usuario_logado1
     return html
 
+@app.get("/usuario")
+def usuario():
+    return UsuarioController.index()
+
+@app.post("/criar_usuario")
+def novo_usuario():
+    return UsuarioController.create(request.form)
+
 @app.get("/easter_egg")
 def easter_egg():
     return render_template('header.html',name='easter_egg')+render_template('easter_egg.html')+render_template('footer.html',scripts=[url_for('static',filename='konami.js')])
@@ -57,6 +62,5 @@ with app.test_request_context():
     print(url_for('index'))
     print(url_for('hello_world'))
     print(url_for('hello_world', next='/'))
-    print(url_for('usuario_get', usuario='John Doe'))
-    print(url_for('usuario_post', usuario='John Doe'))
+    print(url_for('usuario_get', usuario = 1))
     print(url_for('easter_egg'))
