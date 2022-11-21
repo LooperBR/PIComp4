@@ -1,7 +1,6 @@
 from flask import Flask
-from flask import url_for
-from flask import render_template
-from flask import request
+from flask import url_for, redirect, render_template, request
+from flask import session
 import sys
     # caution: path[0] is reserved for script path (or '' in REPL)
 sys.path.insert(1, 'controllers')
@@ -12,16 +11,15 @@ from usuarioController import UsuarioController
 
 
 app = Flask(__name__)
-
-usuario_logado=""
+app.secret_key = b'271e52fe075c9621eb86a26cce283dee515b6c870bb6afbafad6e853b0f23a99'
 
 @app.route("/")
 def index():
     return "<p>index page!</p>"
 
-@app.route("/hello")
-def hello_world():
-    return "<p>Hello, World!</p>"
+@app.route("/home")
+def home():
+    return "<p>home " + session["username"] + " page!</p>"
 
 @app.get("/usuario/<usuario>")
 def usuario_get(usuario):
@@ -37,10 +35,12 @@ def login_get():
 
 @app.post("/login")
 def login_post():
-    html,usuario_logado1=LoginController.login(request.form['login'],request.form['senha'])
-    global usuario_logado
-    usuario_logado = usuario_logado1
-    return html
+    logou,usuario_logado=LoginController.login(request.form['login'],request.form['senha'])
+    print(logou)
+    if logou:
+        session["username"] = usuario_logado
+        return redirect('/home')
+    return redirect('/login')
 
 @app.get("/usuario")
 def usuario():
@@ -48,19 +48,24 @@ def usuario():
 
 @app.post("/criar_usuario")
 def novo_usuario():
-    return UsuarioController.create(request.form)
+    UsuarioController.create(request.form)
+    return redirect('/usuario')
 
 @app.get("/easter_egg")
 def easter_egg():
     return render_template('header.html',name='easter_egg')+render_template('easter_egg.html')+render_template('footer.html',scripts=[url_for('static',filename='konami.js')])
 
+@app.route("/logout")
+def logout():
+    session.pop('username', None)
+    return redirect('/login')
+
 @app.route("/teste")
 def teste():
-    return "<p>Hello, "+usuario_logado+"!</p>"
+    return "<p>Hello, "+session["username"]+"!</p>"
+
 
 with app.test_request_context():
     print(url_for('index'))
-    print(url_for('hello_world'))
-    print(url_for('hello_world', next='/'))
     print(url_for('usuario_get', usuario = 1))
     print(url_for('easter_egg'))

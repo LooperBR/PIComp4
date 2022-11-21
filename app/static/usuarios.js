@@ -6,7 +6,17 @@ function Editar(id){
         if (xhr.status === 200) {
             //console.log(xhr.responseText);
             usuario = JSON.parse(xhr.responseText)[0]
-            //console.log(usuario)
+            console.log(usuario)
+            console.log(Date.parse(usuario[10]))
+            data = new Date(usuario[10])
+            console.log(data)
+            console.log()
+            dia=data.getDate()
+            mes=data.getMonth()+1
+            ano=data.getFullYear()
+            console.log(dia)
+            console.log(mes)
+            console.log(ano)
             document.getElementById("id").value = usuario[0]
             document.getElementById("login").value = usuario[1]
             document.getElementById("senha").value = usuario[2]
@@ -17,10 +27,10 @@ function Editar(id){
             document.getElementById("numero").value = usuario[7]
             document.getElementById("cidade").value = usuario[8]
             document.getElementById("estado").value = usuario[9]
-            document.getElementById("data_nascimento").value = usuario[10]
-            console.log(usuario[11]==1?true:false)
-            console.log(usuario[11])
+            console.log(usuario[10])
+            document.getElementById("data_nascimento").value = data.toISOString().substring(0,10)
             document.getElementById("bibliotecario").checked = usuario[11]
+            document.getElementById("ativo").checked = usuario[12]
         } else {
             console.error(xhr.statusText);
         }
@@ -30,4 +40,8 @@ function Editar(id){
     console.error(xhr.statusText);
     };
     xhr.send(null);
+}
+
+function validateForm(){
+    return true;
 }

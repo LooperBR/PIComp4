@@ -1,20 +1,24 @@
 from usuarioModel import UsuarioModel
-from flask import url_for
-from flask import render_template
+from flask import url_for, redirect, render_template
 
 class UsuarioController:
     def create(parametros):
         bibliotecario = 0
+        ativo = 0
         if("bibliotecario" in parametros):
             bibliotecario = 1
-        
-        if(parametros["id"]==0):
-            print(UsuarioModel.create(parametros,bibliotecario))
-        else:
-            print(UsuarioModel.update(parametros,bibliotecario))
+        if("ativo" in parametros):
+            ativo = 1
         print(parametros)
-        
-        return UsuarioController.index()
+
+        if(parametros["id"]=='0'):
+            print("create")
+            print(UsuarioModel.create(parametros,bibliotecario,ativo))
+        else:
+            print("update")
+            print(UsuarioModel.update(parametros,bibliotecario,ativo))
+            
+        return
     
     def index():
         usuarios = UsuarioModel.getAll()
@@ -24,4 +28,6 @@ class UsuarioController:
         return html
     
     def get(id):
-        return UsuarioModel.get(id)
+        usuario = UsuarioModel.get(id)
+        print(usuario)
+        return usuario

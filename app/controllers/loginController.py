@@ -3,7 +3,13 @@ from loginModel import LoginModel
 class LoginController:
     def login(login,senha):
         usuario = LoginModel.getUsuarioByLogin(login,senha)
-        if len(usuario)>0:
-            return "<p>Ola "+usuario[0][3]+"!</p>",usuario[0][1]
+        print(usuario)
+        print(usuario[0][12])
+        print(usuario[0][12]==1)
+
+        if ((len(usuario)>0) and (usuario[0][12]==1)):
+            print("foi porra")
+            return True,usuario[0][1]
         else:
-            return "<p>usuario nao encontrado!</p>",""
+            print("nao foi porra")
+            return False,""

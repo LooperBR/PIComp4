@@ -1,47 +1,84 @@
 <h1>Novo usuario</h1>
-<form action="{{url}}" method="post" id="formUsuarios">
+<form action="{{url}}" method="post" id="formUsuarios" onsubmit="return validateForm()">
     <label for="id">id(0 para novo usuario)</label>
-    <input type="number" name="id" id="id" value="0">
+    <input type="number" name="id" id="id" value="0" required>
     <br/>
     <label for="login">login</label>
-    <input type="text" name="login" id="login">
+    <input type="text" name="login" id="login" required>
     <br/>
     <label for="senha">senha</label>
-    <input type="text" name="senha" id="senha">
+    <input type="text" name="senha" id="senha" required>
     <br/>
     <label for="nome">nome</label>
-    <input type="text" name="nome" id="nome">
+    <input type="text" name="nome" id="nome" required>
     <br/>
     <label for="cpf">cpf</label>
-    <input type="text" name="cpf" id="cpf">
+    <input type="text" name="cpf" id="cpf" required>
     <br/>
     <label for="bairro">bairro</label>
-    <input type="text" name="bairro" id="bairro">
+    <input type="text" name="bairro" id="bairro" required>
     <br/>
     <label for="rua">rua</label>
-    <input type="text" name="rua" id="rua">
+    <input type="text" name="rua" id="rua" required>
     <br/>
     <label for="numero">numero</label>
-    <input type="text" name="numero" id="numero">
+    <input type="text" name="numero" id="numero" required>
     <br/>
     <label for="cidade">cidade</label>
-    <input type="text" name="cidade" id="cidade">
+    <input type="text" name="cidade" id="cidade" required>
     <br/>
     <label for="estado">estado</label>
-    <input type="text" name="estado" id="estado">
+    <input type="text" name="estado" id="estado" required>
     <br/>
     <label for="data_nascimento">nascimento</label>
-    <input type="text" name="data_nascimento" id="data_nascimento">
+    <input type="date" name="data_nascimento" id="data_nascimento" required>
     <br/>
     <label for="bibliotecario">bibliotecario</label>
     <input type="checkbox" name="bibliotecario" id="bibliotecario">
     <br/>
+    <label for="ativo">ativo</label>
+    <input type="checkbox" name="ativo" id="ativo">
+    <br/>
     <button type="submit">Enviar</button>
 </form>
 
+<table>
+    <tr>
+        <th>id</th>
+        <th>login</th>
+        <th>senha</th>
+        <th>nome</th>
+        <th>cpf</th>
+        <th>bairro</th>
+        <th>rua</th>
+        <th>numero</th>
+        <th>cidade</th>
+        <th>estado</th>
+        <th>data_nascimento</th>
+        <th>bibliotecario</th>
+        <th>ativo</th>
+        <th></th>
+    </tr>
+    
 {% if usuarios :%}
-    {% for i in usuarios:%}
-        <p>{{i}}</p>
-        <button onclick="Editar({{i[0]}})">Editar</button>
+    {% for usuario in usuarios:%}
+        <tr>
+        <td>{{usuario[0]}}</td>
+        <td>{{usuario[1]}}</td>
+        <td>{{usuario[2]}}</td>
+        <td>{{usuario[3]}}</td>
+        <td>{{usuario[4]}}</td>
+        <td>{{usuario[5]}}</td>
+        <td>{{usuario[6]}}</td>
+        <td>{{usuario[7]}}</td>
+        <td>{{usuario[8]}}</td>
+        <td>{{usuario[9]}}</td>
+        <td>{{usuario[10]}}</td>
+        <td>{{usuario[11]}}</td>
+        <td>{{usuario[12]}}</td>
+        <td><button onclick="Editar({{usuario[0]}})">Editar</button></td>
+    </tr>
     {% endfor %}
 {% endif %}
+
+</table>
