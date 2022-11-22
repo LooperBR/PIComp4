@@ -8,4 +8,17 @@
     <link rel="stylesheet" href="{{url_for('static',filename='main.css')}}">
 </head>
 <body>
-    
+    <div id="navbar">
+        <a href="{{url_for('home')}}">Home</a>
+        {% if 'username' in session: %}
+            {% if session['bibliotecario']: %}
+            <a href="{{url_for('usuario')}}">Usuarios</a>
+            <a href="{{url_for('editora')}}">Editoras</a>
+            {% endif %}
+            <span>Logado como: {{session['username']}}</span>
+            <a href="{{url_for('logout')}}">Logout</a>
+        {% else: %}
+            <a href="{{url_for('login_get')}}">Login</a>
+        {% endif %}
+
+    </div>
