@@ -62,3 +62,12 @@ VALUES(2,1);
 INSERT INTO emprestimo(devolvido,data_emprestimo,data_devolucao,data_estimada_devolucao,usuario_bibliotecario_id,usuario_cliente_id,livro_id)
 VALUES(0,'2022-11-06',NULL,'2022-11-20',2,1,2);
 
+SELECT * FROM autor;
+SELECT * FROM emprestimo;
+SELECT * FROM editora;
+SELECT * FROM genero;
+SELECT * FROM livro;
+SELECT * FROM livro_has_autor;
+SELECT * FROM livro_has_editora;
+SELECT * FROM livro_has_genero;
+SELECT * FROM usuario;

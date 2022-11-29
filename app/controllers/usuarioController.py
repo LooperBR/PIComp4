@@ -23,7 +23,7 @@ class UsuarioController:
     def index():
         usuarios = UsuarioModel.getAll()
         html = render_template('header.html',name='login')
-        html +=render_template('usuarios.html',url = url_for('novo_usuario'),usuarios = usuarios)
+        html +=render_template('usuarios.html',usuarios = usuarios)
         html +=render_template('footer.html',scripts=[url_for('static',filename='usuarios.js')])
         return html
     

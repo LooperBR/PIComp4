@@ -17,7 +17,7 @@ class EditoraController:
     def index():
         editoras = EditoraModel.getAll()
         html = render_template('header.html',name='login')
-        html +=render_template('editoras.html',url = url_for('novo_usuario'),editoras = editoras)
+        html +=render_template('editoras.html',editoras = editoras)
         html +=render_template('footer.html',scripts=[url_for('static',filename='editoras.js')])
         return html
     

@@ -14,6 +14,9 @@
             {% if session['bibliotecario']: %}
             <a href="{{url_for('usuario')}}">Usuarios</a>
             <a href="{{url_for('editora')}}">Editoras</a>
+            <a href="{{url_for('autor')}}">Autores</a>
+            <a href="{{url_for('genero')}}">Generos</a>
+            <a href="{{url_for('livro')}}">Livros</a>
             {% endif %}
             <span>Logado como: {{session['username']}}</span>
             <a href="{{url_for('logout')}}">Logout</a>

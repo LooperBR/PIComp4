@@ -10,6 +10,8 @@ from loginController import LoginController
 from usuarioController import UsuarioController
 from editoraController import EditoraController
 from autorController import AutorController
+from generoController import GeneroController
+from livroController import LivroController
 
 
 app = Flask(__name__)
@@ -94,7 +96,7 @@ def nova_editora():
     return redirect('/editora')
 
 @app.get("/autor/<autor>")
-def editora_get(autor):
+def autor_get(autor):
     if not 'username' in session:
         return 'Você precisa estar logado para acessar essa página'
     elif not session['bibliotecario']:
@@ -103,7 +105,7 @@ def editora_get(autor):
     return AutorController.get(autor)
 
 @app.get("/autor")
-def editora():
+def autor():
     if not 'username' in session:
         return 'Você precisa estar logado para acessar essa página'
     elif not session['bibliotecario']:
@@ -114,6 +116,50 @@ def editora():
 def novo_autor():
     AutorController.create(request.form)
     return redirect('/autor')
+
+@app.get("/genero/<genero>")
+def genero_get(genero):
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    
+    return GeneroController.get(genero)
+
+@app.get("/genero")
+def genero():
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    return GeneroController.index()
+
+@app.post("/criar_genero")
+def novo_genero():
+    GeneroController.create(request.form)
+    return redirect('/genero')
+
+@app.get("/livro/<livro>")
+def livro_get(livro):
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    
+    return LivroController.get(livro)
+
+@app.get("/livro")
+def livro():
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    return LivroController.index()
+
+@app.post("/criar_livro")
+def novo_livro():
+    LivroController.create(request.form)
+    return redirect('/livro')
 
 @app.get("/easter_egg")
 def easter_egg():

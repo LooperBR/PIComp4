@@ -1,6 +1,6 @@
-<h1>Nova Editora</h1>
-<form action="{{url_for('nova_editora')}}" method="post" id="formEditora" onsubmit="return validateForm()">
-    <label for="id">id(0 para nova editora)</label>
+<h1>Novo Autor</h1>
+<form action="{{url_for('novo_autor')}}" method="post" id="formAutor" onsubmit="return validateForm()">
+    <label for="id">id(0 para novo autor)</label>
     <input type="number" name="id" id="id" value="0" required>
     <br/>
     <label for="nome">nome</label>
@@ -16,12 +16,12 @@
         <th></th>
     </tr>
     
-{% if editoras :%}
-    {% for editora in editoras:%}
+{% if autores :%}
+    {% for autor in autores:%}
         <tr>
-        <td>{{editora[0]}}</td>
-        <td>{{editora[1]}}</td>
-        <td><button onclick="Editar({{editora[0]}})">Editar</button></td>
+        <td>{{autor[0]}}</td>
+        <td>{{autor[1]}}</td>
+        <td><button onclick="Editar({{autor[0]}})">Editar</button></td>
     </tr>
     {% endfor %}
 {% endif %}
