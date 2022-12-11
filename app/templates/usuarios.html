@@ -1,5 +1,5 @@
 <h1>Novo Usuario</h1>
-<form action="{{url}}" method="post" id="formUsuarios" onsubmit="return validateForm()">
+<form action="{{url_for('novo_usuario')}}" method="post" id="formUsuarios" onsubmit="return validateForm()">
     <label for="id">id(0 para novo usuario)</label>
     <input type="number" name="id" id="id" value="0" required>
     <br/>

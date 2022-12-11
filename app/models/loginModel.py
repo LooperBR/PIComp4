@@ -3,7 +3,7 @@ import mysql.connector
 # Creating connection object
 host = "localhost"
 user = "root"
-password = "123456"
+password = ""
 database = "biblioteca"
 class LoginModel:
     

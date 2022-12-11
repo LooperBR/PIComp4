@@ -1,0 +1,29 @@
+<h1>Ver emprestimos</h1>
+<table>
+    <tr>
+        <th>id</th>
+        <th>devolvido</th>
+        <th>data_emprestimo</th>
+        <th>data_devolucao</th>
+        <th>data_estimada_devolucao</th>
+        <th>bibliotecario</th>
+        <th>cliente</th>
+        <th>livro</th>
+    </tr>
+    
+{% if emprestimos :%}
+    {% for emprestimo in emprestimos:%}
+        <tr>
+        <td>{{emprestimo[0]}}</td>
+        <td>{{emprestimo[1]}}</td>
+        <td>{{emprestimo[2]}}</td>
+        <td>{{emprestimo[3]}}</td>
+        <td>{{emprestimo[4]}}</td>
+        <td>{{emprestimo[5]}}</td>
+        <td>{{emprestimo[6]}}</td>
+        <td>{{emprestimo[7]}}</td>
+    </tr>
+    {% endfor %}
+{% endif %}
+
+</table>

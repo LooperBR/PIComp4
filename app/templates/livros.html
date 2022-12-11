@@ -19,6 +19,28 @@
     <br/>
     <div id="area_autores">
     </div>
+    <br/>Autor
+    <label for="editoras">editoras</label>
+    <select id="editoras">
+        {% for editora in editoras:%}
+        <option value="{{editora[0]}}">{{editora[1]}}</option>
+        {% endfor %}
+    </select>
+    <button type="button" onclick="AdicionarEditora()">Adicionar</button>
+    <br/>
+    <div id="area_editoras">
+    </div>
+    <br/>
+    <label for="generos">generos</label>
+    <select id="generos">
+        {% for genero in generos:%}
+        <option value="{{genero[0]}}">{{genero[1]}}</option>
+        {% endfor %}
+    </select>
+    <button type="button" onclick="AdicionarGenero()">Adicionar</button>
+    <br/>
+    <div id="area_generos">
+    </div>
     <br/>
     <button type="submit">Enviar</button>
 </form>
@@ -28,6 +50,9 @@
         <th>id</th>
         <th>nome</th>
         <th>edição</th>
+        <th>autores</th>
+        <th>editoras</th>
+        <th>generos</th>
         <th></th>
     </tr>
     
@@ -37,6 +62,9 @@
         <td>{{livro[0]}}</td>
         <td>{{livro[1]}}</td>
         <td>{{livro[2]}}</td>
+        <td>{{livro[3]}}</td>
+        <td>{{livro[4]}}</td>
+        <td>{{livro[5]}}</td>
         <td><button onclick="Editar({{livro[0]}})">Editar</button></td>
     </tr>
     {% endfor %}

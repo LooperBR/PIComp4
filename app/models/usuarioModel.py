@@ -3,7 +3,7 @@ import mysql.connector
 # Creating connection object
 host = "localhost"
 user = "root"
-password = "123456"
+password = ""
 database = "biblioteca"
 
 class UsuarioModel:
@@ -46,6 +46,27 @@ class UsuarioModel:
         mycursor.close()
         mydb.close()
         return myresult
+    
+    def getBibliotecarios():
+        mydb = mysql.connector.connect(host = host, user = user, password = password, database = database)
+        mycursor = mydb.cursor()
+        sql = "SELECT * FROM usuario where bibliotecario = 1 and ativo = 1;"
+        mycursor.execute(sql)
+        myresult = mycursor.fetchall()
+        mycursor.close()
+        mydb.close()
+        return myresult
+    
+    def getClientes():
+        mydb = mysql.connector.connect(host = host, user = user, password = password, database = database)
+        mycursor = mydb.cursor()
+        sql = "SELECT * FROM usuario where ativo = 1;"
+        mycursor.execute(sql)
+        myresult = mycursor.fetchall()
+        mycursor.close()
+        mydb.close()
+        return myresult
+    
     
     def get(id):
         mydb = mysql.connector.connect(host = host, user = user, password = password, database = database)

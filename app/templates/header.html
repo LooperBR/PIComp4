@@ -17,7 +17,9 @@
             <a href="{{url_for('autor')}}">Autores</a>
             <a href="{{url_for('genero')}}">Generos</a>
             <a href="{{url_for('livro')}}">Livros</a>
+            <a href="{{url_for('emprestimo')}}">Emprestimos</a>
             {% endif %}
+            <a href="{{url_for('ver_emprestimo')}}">Ver Emprestimos</a>
             <span>Logado como: {{session['username']}}</span>
             <a href="{{url_for('logout')}}">Logout</a>
         {% else: %}

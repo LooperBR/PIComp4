@@ -1,0 +1,71 @@
+<h1>Novo Emprestimo</h1>
+<form action="{{url_for('novo_emprestimo')}}" method="post" id="formEmprestimo" onsubmit="return validateForm()">
+    <label for="id">id(0 para novo emprestimo)</label>
+    <input type="number" name="id" id="id" value="0" required>
+    <br/>
+    <label for="devolvido">devolvido</label>
+    <input type="checkbox" name="devolvido" id="devolvido">
+    <br/>
+    <label for="data_emprestimo">data_emprestimo</label>
+    <input type="date" name="data_emprestimo" id="data_emprestimo" required>
+    <br/>
+    <label for="data_devolucao">data_devolucao</label>
+    <input type="date" name="data_devolucao" id="data_devolucao">
+    <br/>
+    <label for="data_estimada_devolucao">data_estimada_devolucao</label>
+    <input type="date" name="data_estimada_devolucao" id="data_estimada_devolucao" required>
+    <br/>
+    <label for="bibliotecario">bibliotecario</label>
+    <select id="bibliotecario" name="bibliotecario">
+        {% for bibliotecario in bibliotecarios:%}
+        <option value="{{bibliotecario[0]}}">{{bibliotecario[1]}}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <label for="cliente">cliente</label>
+    <select id="cliente" name="cliente">
+        {% for cliente in clientes:%}
+        <option value="{{cliente[0]}}">{{cliente[1]}}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <label for="livro">livro</label>
+    <select id="livro" name="livro">
+        {% for livro in livros:%}
+        <option value="{{livro[0]}}" {% if livro[2]==1 %}disabled{% endif %}>{{livro[1]}}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <button type="submit">Enviar</button>
+</form>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>devolvido</th>
+        <th>data_emprestimo</th>
+        <th>data_devolucao</th>
+        <th>data_estimada_devolucao</th>
+        <th>bibliotecario</th>
+        <th>cliente</th>
+        <th>livro</th>
+        <th></th>
+    </tr>
+    
+{% if emprestimos :%}
+    {% for emprestimo in emprestimos:%}
+        <tr>
+        <td>{{emprestimo[0]}}</td>
+        <td>{{emprestimo[1]}}</td>
+        <td>{{emprestimo[2]}}</td>
+        <td>{{emprestimo[3]}}</td>
+        <td>{{emprestimo[4]}}</td>
+        <td>{{emprestimo[5]}}</td>
+        <td>{{emprestimo[6]}}</td>
+        <td>{{emprestimo[7]}}</td>
+        <td><button onclick="Editar({{emprestimo[0]}})">Editar</button></td>
+    </tr>
+    {% endfor %}
+{% endif %}
+
+</table>

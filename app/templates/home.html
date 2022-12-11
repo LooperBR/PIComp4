@@ -1,5 +1,25 @@
 <h1>Livros recomendados</h1>
-<p>livro1</p>
-<p>livro2</p>
-<p>livro3</p>
-<p>livro4</p>
+<table>
+  <tr>
+      <th>id</th>
+      <th>nome</th>
+      <th>edição</th>
+      <th>autores</th>
+      <th>editoras</th>
+      <th>generos</th>
+  </tr>
+  
+{% if livros :%}
+  {% for livro in livros:%}
+      <tr>
+      <td>{{livro[0]}}</td>
+      <td>{{livro[1]}}</td>
+      <td>{{livro[2]}}</td>
+      <td>{{livro[3]}}</td>
+      <td>{{livro[4]}}</td>
+      <td>{{livro[5]}}</td>
+  </tr>
+  {% endfor %}
+{% endif %}
+
+</table>

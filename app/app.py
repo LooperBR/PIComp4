@@ -12,6 +12,7 @@ from editoraController import EditoraController
 from autorController import AutorController
 from generoController import GeneroController
 from livroController import LivroController
+from emprestimoController import EmprestimoController
 
 
 app = Flask(__name__)
@@ -23,9 +24,9 @@ def index():
 
 @app.route("/home")
 def home():
-
+    livros = LivroController.getRandom(4)
     html = render_template('header.html',name='home')
-    html +=render_template('home.html')
+    html +=render_template('home.html',livros=livros)
     html +=render_template('footer.html')
 
     return html
@@ -43,11 +44,12 @@ def login_get():
 
 @app.post("/login")
 def login_post():
-    logou,usuario_logado,bibliotecario=LoginController.login(request.form['login'],request.form['senha'])
+    logou,usuario_logado,bibliotecario,usuario_id=LoginController.login(request.form['login'],request.form['senha'])
     print(logou)
     if logou:
         session["username"] = usuario_logado
         session["bibliotecario"] = bibliotecario
+        session["id"] = usuario_id
         return redirect('/home')
     return redirect('/login')
 
@@ -161,6 +163,36 @@ def novo_livro():
     LivroController.create(request.form)
     return redirect('/livro')
 
+@app.get("/emprestimo/<emprestimo>")
+def emprestimo_get(emprestimo):
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    
+    return EmprestimoController.get(emprestimo)
+
+@app.get("/emprestimo")
+def emprestimo():
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif not session['bibliotecario']:
+        return 'Seu usuário não tem permissão para ver essa página'
+    return EmprestimoController.index()
+
+@app.post("/criar_emprestimo")
+def novo_emprestimo():
+    EmprestimoController.create(request.form)
+    return redirect('/emprestimo')
+
+@app.get("/ver_emprestimo")
+def ver_emprestimo():
+    if not 'username' in session:
+        return 'Você precisa estar logado para acessar essa página'
+    elif session['bibliotecario']:
+        return EmprestimoController.verEmprestimo(1,session['id'])
+    return EmprestimoController.verEmprestimo(0,session['id'])
+
 @app.get("/easter_egg")
 def easter_egg():
     return render_template('header.html',name='easter_egg')+render_template('easter_egg.html')+render_template('footer.html',scripts=[url_for('static',filename='konami.js')])
@@ -169,6 +201,7 @@ def easter_egg():
 def logout():
     session.pop('username', None)
     session.pop('bibliotecario', None)
+    session.pop('id', None)
     return redirect('/login')
 
 @app.route("/teste")
